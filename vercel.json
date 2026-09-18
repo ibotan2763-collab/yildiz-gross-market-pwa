@@ -1,0 +1,4 @@
+{
+  "rewrites": [{"source": "/api/config", "destination": "/api/config.js"}],
+  "headers": [{"source":"/(.*)","headers":[{"key":"X-Content-Type-Options","value":"nosniff"}]}]
+}
