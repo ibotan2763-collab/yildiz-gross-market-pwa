@@ -27,3 +27,24 @@ function setPay(p){payment=p;$('cash').classList.toggle('sel',p==='Kapıda Nakit
 async function placeOrder(){try{let d=await profile(),aid=$('addrsel').value,a=d.a.find(x=>x.id===aid),total=cart.reduce((s,x)=>s+x.price*x.qty,0);let order=(await rest('orders',{method:'POST',headers:{Prefer:'return=representation'},body:JSON.stringify({user_id:session.user.id,address_id:a.id,customer_name:d.p.full_name,phone:d.p.phone,delivery_address:a.address,payment_method:payment,total})}))?.[0];await rest('order_items',{method:'POST',headers:{Prefer:'return=minimal'},body:JSON.stringify(cart.map(x=>({order_id:order.id,product_id:x.id,product_name:x.name,quantity:x.qty,unit_price:x.price,line_total:x.price*x.qty})))});cart=[];saveCart();show(`<h2>✅ Siparişiniz Alındı</h2><p>Sipariş numarası: <b>${order.id.slice(0,8)}</b></p><p>Ödeme: ${payment}</p><button class='btn' onclick='closeModal()'>Tamam</button>`)}catch(e){alert('Sipariş kaydedilemedi: '+e.message)}}
 async function openOrders(){if(!session)return authScreen();try{let o=await rest(`orders?select=*&user_id=eq.${session.user.id}&order=created_at.desc`);show(`<h2>Siparişlerim</h2>${o.length?o.map(x=>`<div class='order'><b>#${x.id.slice(0,8)}</b> · ${esc(x.status)}<p>${new Date(x.created_at).toLocaleString('tr-TR')}<br>${esc(x.payment_method)} · <b>${money(x.total)}</b></p></div>`).join(''):'<p>Henüz siparişiniz yok.</p>'}`)}catch(e){alert(e.message)}}
 let deferredPrompt;window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;$('installBtn')?.classList.remove('hidden')});$('installBtn')?.addEventListener('click',async()=>{if(deferredPrompt){deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null}});if('serviceWorker'in navigator)navigator.serviceWorker.register('/sw.js');boot();
+async function changeEmail(newEmail) {
+  newEmail = (newEmail || "").trim();
+
+  if (!newEmail || !newEmail.includes("@")) {
+    alert("Geçerli bir e-posta adresi girin.");
+    return false;
+  }
+
+  const { data, error } = await sb.auth.updateUser({
+    email: newEmail
+  });
+
+  if (error) {
+    console.error(error);
+    alert("E-posta değiştirilemedi: " + error.message);
+    return false;
+  }
+
+  alert("E-posta değişikliği gönderildi. Yeni e-posta adresinizi kontrol edin.");
+  return true;
+}
