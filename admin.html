@@ -1,624 +1,592 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yıldız Gross | Yönetim Paneli</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Yıldız Gross | Yönetim Paneli</title>
 
-  <style>
-    * { box-sizing: border-box; }
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Arial,sans-serif;
+  background:#f4f5f7;
+  color:#222
+}
+header{
+  background:#d71920;
+  color:white;
+  padding:18px;
+  text-align:center
+}
+header h1{margin:0;font-size:26px}
+header p{margin:5px 0 0;color:#ffd92f;font-weight:bold}
 
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f5f7;
-      color: #222;
-    }
-
-    header {
-      background: #d71920;
-      color: white;
-      padding: 18px 25px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    header h1 {
-      margin: 0;
-      font-size: 24px;
-    }
-
-    .badge {
-      background: #ffd400;
-      color: #222;
-      padding: 8px 14px;
-      border-radius: 20px;
-      font-weight: bold;
-    }
-
-    .container {
-      max-width: 1200px;
-      margin: 25px auto;
-      padding: 0 15px;
-    }
-
-    .menu {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
-      gap: 12px;
-      margin-bottom: 25px;
-    }
-
-    .menu button {
-      border: 0;
-      padding: 15px;
-      border-radius: 10px;
-      background: white;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: bold;
-      box-shadow: 0 2px 8px #ddd;
-    }
-
-    .menu button:hover {
-      background: #ffd400;
-    }
-
-    .panel {
-      display: none;
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px #ddd;
-    }
-
-    .panel.active {
-      display: block;
-    }
-
-    h2 {
-      margin-top: 0;
-    }
-
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-
-    th, td {
-      padding: 12px;
-      border-bottom: 1px solid #eee;
-      text-align: left;
-    }
-
-    th {
-      background: #f7f7f7;
-    }
-
-    input, select {
-      width: 100%;
-      padding: 10px;
-      margin: 6px 0 12px;
-      border: 1px solid #ccc;
-      border-radius: 7px;
-    }
-
-    .primary {
-      background: #d71920;
-      color: white;
-      border: 0;
-      padding: 11px 18px;
-      border-radius: 7px;
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .green {
-      background: #18864b;
-      color: white;
-      border: 0;
-      padding: 8px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .danger {
-      background: #d71920;
-      color: white;
-      border: 0;
-      padding: 8px 10px;
-      border-radius: 6px;
-      cursor: pointer;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
-      gap: 15px;
-      margin-bottom: 20px;
-    }
-
-    .card {
-      background: #fff7d1;
-      padding: 20px;
-      border-radius: 10px;
-    }
-
-    .card strong {
-      font-size: 25px;
-      display: block;
-      margin-top: 8px;
-    }
-
-    @media(max-width:700px) {
-      table {
-        font-size: 13px;
-      }
-
-      header h1 {
-        font-size: 18px;
-      }
-    }
-  </style>
+.container{
+  max-width:1100px;
+  margin:20px auto;
+  padding:0 15px
+}
+.tabs{
+  display:flex;
+  gap:8px;
+  flex-wrap:wrap;
+  margin-bottom:18px
+}
+.tabs button{
+  border:0;
+  background:#fff;
+  padding:12px 16px;
+  border-radius:10px;
+  cursor:pointer;
+  font-weight:bold
+}
+.tabs button.active{
+  background:#d71920;
+  color:#fff
+}
+.panel{
+  background:white;
+  padding:20px;
+  border-radius:15px;
+  box-shadow:0 3px 15px rgba(0,0,0,.08);
+  margin-bottom:18px
+}
+.hidden{display:none}
+input,textarea,select{
+  width:100%;
+  padding:12px;
+  margin:6px 0 12px;
+  border:1px solid #ccc;
+  border-radius:9px;
+  font-size:15px
+}
+button.action{
+  background:#18a957;
+  color:white;
+  border:0;
+  padding:12px 18px;
+  border-radius:9px;
+  cursor:pointer;
+  font-weight:bold
+}
+button.red{background:#d71920}
+button.blue{background:#1677d2}
+.message{
+  margin-top:12px;
+  font-weight:bold
+}
+.card{
+  border:1px solid #ddd;
+  padding:15px;
+  margin:10px 0;
+  border-radius:12px
+}
+.card h3{margin-top:0}
+.price{
+  font-size:20px;
+  font-weight:bold;
+  color:#d71920
+}
+.status{
+  display:inline-block;
+  padding:6px 10px;
+  border-radius:20px;
+  background:#fff3cd;
+  font-weight:bold
+}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+  gap:12px
+}
+.stat{
+  background:white;
+  padding:18px;
+  border-radius:15px;
+  text-align:center;
+  box-shadow:0 3px 15px rgba(0,0,0,.07)
+}
+.stat strong{
+  display:block;
+  font-size:28px;
+  color:#d71920
+}
+.small{font-size:13px;color:#666}
+</style>
 </head>
 
 <body>
 
 <header>
   <h1>⭐ YILDIZ GROSS</h1>
-  <div class="badge">YÖNETİM PANELİ</div>
+  <p>Yönetim Paneli</p>
 </header>
 
 <div class="container">
 
-  <div class="menu">
-    <button onclick="showPanel('dashboard')">📊 Genel Bakış</button>
-    <button onclick="showPanel('orders')">🛒 Siparişler</button>
-    <button onclick="showPanel('products')">📦 Ürünler</button>
-    <button onclick="showPanel('addProduct')">➕ Ürün Ekle</button>
+<div class="grid">
+  <div class="stat">
+    <strong id="orderCount">-</strong>
+    Toplam Sipariş
   </div>
+  <div class="stat">
+    <strong id="productCount">-</strong>
+    Ürün
+  </div>
+</div>
 
-  <section id="dashboard" class="panel active">
-    <h2>Genel Bakış</h2>
+<br>
 
-    <div class="cards">
-      <div class="card">
-        Toplam Sipariş
-        <strong id="orderCount">-</strong>
-      </div>
+<div class="tabs">
+  <button class="active" onclick="showPanel('orders',this)">📦 Siparişler</button>
+  <button onclick="showPanel('products',this)">🛒 Ürünler</button>
+  <button onclick="showPanel('settings',this)">⚙️ Market Ayarları</button>
+</div>
 
-      <div class="card">
-        Toplam Ürün
-        <strong id="productCount">-</strong>
-      </div>
+<div id="orders" class="panel">
+  <h2>📦 Gelen Siparişler</h2>
+  <button class="action blue" onclick="loadOrders()">Yenile</button>
+  <div id="ordersList">Yükleniyor...</div>
+</div>
 
-      <div class="card">
-        Bekleyen Sipariş
-        <strong id="waitingCount">-</strong>
-      </div>
-    </div>
-  </section>
+<div id="products" class="panel hidden">
+  <h2>🛒 Ürün Yönetimi</h2>
+  <button class="action blue" onclick="loadProducts()">Ürünleri Yenile</button>
+  <div id="productsList">Yükleniyor...</div>
+</div>
 
-  <section id="orders" class="panel">
-    <h2>Gelen Siparişler</h2>
+<div id="settings" class="panel hidden">
 
-    <table>
-      <thead>
-        <tr>
-          <th>Sipariş No</th>
-          <th>Tutar</th>
-          <th>Durum</th>
-          <th>İşlem</th>
-        </tr>
-      </thead>
+  <h2>⚙️ Market Ayarları</h2>
 
-      <tbody id="ordersBody"></tbody>
-    </table>
-  </section>
+  <label>Market Adı</label>
+  <input id="storeName">
 
-  <section id="products" class="panel">
-    <h2>Ürün Yönetimi</h2>
+  <label>Yönetici Adı</label>
+  <input id="managerName">
 
-    <table>
-      <thead>
-        <tr>
-          <th>Ürün</th>
-          <th>Fiyat</th>
-          <th>Stok</th>
-          <th>İşlem</th>
-        </tr>
-      </thead>
+  <label>Telefon Numarası</label>
+  <input id="phone">
 
-      <tbody id="productsBody"></tbody>
-    </table>
-  </section>
+  <label>Adres</label>
+  <textarea id="address"></textarea>
 
-  <section id="addProduct" class="panel">
-    <h2>Yeni Ürün Ekle</h2>
+  <label>Logo Adresi (URL)</label>
+  <input id="logoUrl" placeholder="https://...">
 
-    <label>Ürün adı</label>
-    <input id="newName" placeholder="Örn: Ayçiçek Yağı 5 L">
+  <button class="action" onclick="saveSettings()">
+    Ayarları Kaydet
+  </button>
 
-    <label>Fiyat</label>
-    <input id="newPrice" type="number" step="0.01" placeholder="199.90">
-
-    <label>Stok</label>
-    <input id="newStock" type="number" placeholder="50">
-
-    <button class="primary" onclick="addProduct()">
-      Ürünü Kaydet
-    </button>
-  </section>
+  <div id="settingsMessage" class="message"></div>
 
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</div>
 
 <script>
-const SUPABASE_URL = "https://jqftaggiyvnmmyhewmsj.supabase.co";
-const SUPABASE_ANON_KEY = "sb_publishable_K5oT0Cd1Xqov6RkktIm0EA_-dQJiG7A";
 
-const db = supabase.createClient(
-  SUPABASE_URL,
-  SUPABASE_ANON_KEY
-);
-const savedSession = JSON.parse(
-  localStorage.getItem("yl_session") || "null"
-);
+let CFG={url:"",key:""};
 
-async function startAdmin() {
-  if (!savedSession?.access_token) {
-    alert("Yönetim panelini kullanmak için önce Yıldız Gross hesabınızla giriş yapın.");
-    return;
+async function boot(){
+
+  try{
+
+    CFG=await (await fetch("/api/config")).json();
+
+    if(!CFG.url || !CFG.key){
+      throw new Error("Supabase bağlantı bilgileri alınamadı.");
+    }
+
+    await Promise.all([
+      loadOrders(),
+      loadProducts(),
+      loadSettings()
+    ]);
+
+  }catch(e){
+    alert("Bağlantı hatası: "+e.message);
   }
-
-  const { error } = await db.auth.setSession({
-    access_token: savedSession.access_token,
-    refresh_token: savedSession.refresh_token || ""
-  });
-
-  if (error) {
-    console.error(error);
-    alert("Yönetici oturumu açılamadı.");
-    return;
-  }
-await loadOrders();
-await loadProducts();
 
 }
-function showPanel(id) {
+
+function headers(){
+  return{
+    "apikey":CFG.key,
+    "Authorization":"Bearer "+CFG.key,
+    "Content-Type":"application/json"
+  };
+}
+
+async function rest(path,opt={}){
+
+  const r=await fetch(
+    CFG.url+"/rest/v1/"+path,
+    {
+      ...opt,
+      headers:{
+        ...headers(),
+        ...(opt.headers||{})
+      }
+    }
+  );
+
+  if(!r.ok){
+    const t=await r.text();
+    throw new Error(t || ("HTTP "+r.status));
+  }
+
+  if(r.status===204)return null;
+
+  const text=await r.text();
+
+  return text ? JSON.parse(text) : null;
+}
+
+function esc(v){
+  return String(v??"")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;");
+}
+
+function money(n){
+  return Number(n||0).toLocaleString(
+    "tr-TR",
+    {
+      style:"currency",
+      currency:"TRY"
+    }
+  );
+}
+
+function showPanel(id,btn){
+
   document.querySelectorAll(".panel")
-    .forEach(p => p.classList.remove("active"));
+    .forEach(x=>x.classList.add("hidden"));
 
   document.getElementById(id)
-    .classList.add("active");
+    .classList.remove("hidden");
+
+  document.querySelectorAll(".tabs button")
+    .forEach(x=>x.classList.remove("active"));
+
+  btn.classList.add("active");
 }
 
-async function loadOrders() {
-  const { data, error } = await db
-    .from("orders")
-    .select("*")
-    .order("created_at", { ascending: false });
+async function loadOrders(){
 
-  if (error) {
-    console.error(error);
-    return;
-  }
+  const box=document.getElementById("ordersList");
 
-  document.getElementById("orderCount").textContent =
-    data.length;
+  box.innerHTML="<p>Yükleniyor...</p>";
 
-  document.getElementById("waitingCount").textContent =
-    data.filter(x => x.status === "Sipariş Alındı").length;
+  try{
 
-  document.getElementById("ordersBody").innerHTML =
-    data.map(order => `
-      <tr>
-        <td>${order.order_number || "-"}</td>
+    const data=await rest(
+      "orders?select=*&order=created_at.desc"
+    );
 
-        <td>
-          ₺${Number(order.total_amount || 0).toFixed(2)}
-        </td>
+    document.getElementById("orderCount").textContent=
+      data?.length||0;
 
-        <td>
-          <select onchange="changeStatus(
-            '${order.id}',
-            this.value
-          )">
-            <option ${order.status==="Sipariş Alındı"?"selected":""}>
-              Sipariş Alındı
-            </option>
-
-            <option ${order.status==="Hazırlanıyor"?"selected":""}>
-              Hazırlanıyor
-            </option>
-
-            <option ${order.status==="Yola Çıktı"?"selected":""}>
-              Yola Çıktı
-            </option>
-
-            <option ${order.status==="Teslim Edildi"?"selected":""}>
-              Teslim Edildi
-            </option>
-          </select>
-        </td>
-
-        <td>Yönet</td>
-      </tr>
-    `).join("");
-}
-
-async function changeStatus(id, status) {
-  const { error } = await db
-    .from("orders")
-    .update({ status })
-    .eq("id", id);
-
-  if (error) {
-    alert("Durum değiştirilemedi.");
-    console.error(error);
-    return;
-  }
-
-  alert("Sipariş durumu güncellendi.");
-  loadOrders();
-}
-
-async function loadProducts() {
-  const { data, error } = await db
-    .from("products")
-    .select("*")
-    .order("created_at", { ascending: false });
-
-  if (error) {
-    console.error(error);
-    return;
-  }
-
-  document.getElementById("productCount").textContent =
-    data.length;
-
-  document.getElementById("productsBody").innerHTML =
-    data.map(product => `
-      <tr>
-        <td>${product.name}</td>
-        <td>₺${Number(product.price).toFixed(2)}</td>
-        <td>${product.stock ?? "-"}</td>
-
-        <td>
-          <button
-            class="danger"
-            onclick="deleteProduct('${product.id}')">
-            Sil
-          </button>
-        </td>
-      </tr>
-    `).join("");
-}
-
-async function deleteProduct(id) {
-  if (!confirm("Bu ürünü silmek istediğine emin misin?"))
-    return;
-
-  const { error } = await db
-    .from("products")
-    .delete()
-    .eq("id", id);
-
-  if (error) {
-    alert("Ürün silinemedi.");
-    console.error(error);
-    return;
-  }
-
-  loadProducts();
-}
-
-async function addProduct() {
-  const name =
-    document.getElementById("newName").value.trim();
-
-  const price =
-    Number(document.getElementById("newPrice").value);
-
-  const stock =
-    Number(document.getElementById("newStock").value);
-
-  if (!name || !price) {
-    alert("Ürün adı ve fiyatı gir.");
-    return;
-  }
-
-  const slug = name
-    .toLowerCase()
-    .replace(/ğ/g,"g")
-    .replace(/ü/g,"u")
-    .replace(/ş/g,"s")
-    .replace(/ı/g,"i")
-    .replace(/ö/g,"o")
-    .replace(/ç/g,"c")
-    .replace(/[^a-z0-9]+/g,"-")
-    .replace(/^-|-$/g,"");
-
-  const { error } = await db
-    .from("products")
-    .insert({
-      name,
-      slug,
-      price,
-      stock
-    });
-
-  if (error) {
-    alert("Ürün eklenemedi.");
-    console.error(error);
-    return;
-  }
-
-  alert("Ürün başarıyla eklendi.");
-
-  document.getElementById("newName").value = "";
-  document.getElementById("newPrice").value = "";
-  document.getElementById("newStock").value = "";
-
-  loadProducts();
-  showPanel("products");
-}
-
-
-startAdmin();
-</script>
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-  const settingsBox = document.createElement("div");
-
-  settingsBox.innerHTML = `
-    <div id="marketSettingsPanel" style="
-      max-width:700px;
-      margin:30px auto;
-      padding:25px;
-      background:white;
-      border-radius:16px;
-      box-shadow:0 4px 20px rgba(0,0,0,.12);
-      font-family:Arial,sans-serif;
-    ">
-      <h2 style="margin-top:0;">🏪 Market Ayarları</h2>
-
-      <label>Market Adı</label>
-      <input id="settingStoreName" type="text"
-        style="width:100%;padding:12px;margin:7px 0 15px;box-sizing:border-box;">
-
-      <label>Yönetici Adı</label>
-      <input id="settingManagerName" type="text"
-        style="width:100%;padding:12px;margin:7px 0 15px;box-sizing:border-box;">
-
-      <label>Telefon Numarası</label>
-      <input id="settingPhone" type="tel"
-        style="width:100%;padding:12px;margin:7px 0 15px;box-sizing:border-box;">
-
-      <label>Adres</label>
-      <textarea id="settingAddress" rows="3"
-        style="width:100%;padding:12px;margin:7px 0 15px;box-sizing:border-box;"></textarea>
-
-      <label>Logo Adresi (URL)</label>
-      <input id="settingLogo" type="text"
-        placeholder="https://..."
-        style="width:100%;padding:12px;margin:7px 0 15px;box-sizing:border-box;">
-
-      <div style="margin:5px 0 15px;">
-        <img id="settingLogoPreview"
-          style="display:none;max-width:180px;max-height:100px;border-radius:8px;">
-      </div>
-
-      <button id="saveMarketSettings" type="button" style="
-        width:100%;
-        padding:14px;
-        border:0;
-        border-radius:10px;
-        background:#16a34a;
-        color:white;
-        font-size:16px;
-        font-weight:bold;
-        cursor:pointer;
-      ">
-        Ayarları Kaydet
-      </button>
-
-      <div id="settingsMessage"
-        style="margin-top:12px;font-weight:bold;"></div>
-    </div>
-  `;
-
-  document.body.appendChild(settingsBox);
-
-  const storeName = document.getElementById("settingStoreName");
-  const managerName = document.getElementById("settingManagerName");
-  const phone = document.getElementById("settingPhone");
-  const address = document.getElementById("settingAddress");
-  const logo = document.getElementById("settingLogo");
-  const preview = document.getElementById("settingLogoPreview");
-  const message = document.getElementById("settingsMessage");
-
-  async function loadMarketSettings() {
-    try {
-      const { data, error } = await supabase
-        .from("store_settings")
-        .select("*")
-        .limit(1)
-        .maybeSingle();
-
-      if (error) throw error;
-      if (!data) return;
-
-      storeName.value = data.store_name || "";
-      managerName.value = data.manager_name || "";
-      phone.value = data.phone || "";
-      address.value = data.address || "";
-      logo.value = data.logo_url || "";
-
-      if (data.logo_url) {
-        preview.src = data.logo_url;
-        preview.style.display = "block";
-      }
-    } catch (error) {
-      console.error("Market ayarları yüklenemedi:", error);
+    if(!data || !data.length){
+      box.innerHTML="<p>Henüz sipariş bulunmuyor.</p>";
+      return;
     }
-  }
 
-  logo.addEventListener("input", function () {
-    if (logo.value.trim()) {
-      preview.src = logo.value.trim();
-      preview.style.display = "block";
-    } else {
-      preview.style.display = "none";
-    }
-  });
+    box.innerHTML=data.map(o=>`
 
-  document.getElementById("saveMarketSettings")
-    .addEventListener("click", async function () {
+      <div class="card">
 
-      message.textContent = "Kaydediliyor...";
+        <h3>
+          Sipariş #${esc(o.order_number || o.id)}
+        </h3>
 
-      try {
-        const { data: current, error: readError } = await supabase
-          .from("store_settings")
-          .select("id")
-          .limit(1)
-          .maybeSingle();
+        <p>
+          <b>Durum:</b>
+          <span class="status">${esc(o.status||"Sipariş Alındı")}</span>
+        </p>
 
-        if (readError) throw readError;
-
-        if (!current) {
-          throw new Error("Market ayarları kaydı bulunamadı.");
+        ${
+          o.total_amount!=null
+          ? `<p class="price">${money(o.total_amount)}</p>`
+          : ""
         }
 
-        const { error } = await supabase
-          .from("store_settings")
-          .update({
-            store_name: storeName.value.trim(),
-            manager_name: managerName.value.trim(),
-            phone: phone.value.trim(),
-            address: address.value.trim(),
-            logo_url: logo.value.trim(),
-            updated_at: new Date().toISOString()
-          })
-          .eq("id", current.id);
+        ${
+          o.payment_method
+          ? `<p><b>Ödeme:</b> ${esc(o.payment_method)}</p>`
+          : ""
+        }
 
-        if (error) throw error;
+        ${
+          o.created_at
+          ? `<p class="small">${new Date(o.created_at).toLocaleString("tr-TR")}</p>`
+          : ""
+        }
 
-        message.style.color = "green";
-        message.textContent = "✓ Market bilgileri başarıyla kaydedildi.";
-      } catch (error) {
-        console.error(error);
-        message.style.color = "red";
-        message.textContent = "Kaydedilemedi: " + error.message;
+        <select id="status-${o.id}">
+          <option>Sipariş Alındı</option>
+          <option>Hazırlanıyor</option>
+          <option>Yola Çıktı</option>
+          <option>Teslim Edildi</option>
+          <option>İptal Edildi</option>
+        </select>
+
+        <button
+          class="action"
+          onclick="updateOrderStatus('${o.id}')">
+          Durumu Güncelle
+        </button>
+
+      </div>
+
+    `).join("");
+
+    data.forEach(o=>{
+
+      const s=document.getElementById("status-"+o.id);
+
+      if(s && o.status){
+        [...s.options].forEach(op=>{
+          if(op.value===o.status)s.value=o.status;
+        });
       }
+
     });
 
-  loadMarketSettings();
-});
+  }catch(e){
+
+    box.innerHTML=
+      `<p style="color:red">Siparişler alınamadı: ${esc(e.message)}</p>`;
+  }
+
+}
+
+async function updateOrderStatus(id){
+
+  const status=
+    document.getElementById("status-"+id).value;
+
+  try{
+
+    await rest(
+      "orders?id=eq."+encodeURIComponent(id),
+      {
+        method:"PATCH",
+        headers:{
+          "Prefer":"return=minimal"
+        },
+        body:JSON.stringify({status})
+      }
+    );
+
+    alert("Sipariş durumu güncellendi.");
+
+    loadOrders();
+
+  }catch(e){
+    alert("Güncellenemedi: "+e.message);
+  }
+
+}
+
+async function loadProducts(){
+
+  const box=document.getElementById("productsList");
+
+  box.innerHTML="<p>Yükleniyor...</p>";
+
+  try{
+
+    const data=await rest(
+      "products?select=*&order=name.asc"
+    );
+
+    document.getElementById("productCount").textContent=
+      data?.length||0;
+
+    if(!data || !data.length){
+      box.innerHTML="<p>Ürün bulunamadı.</p>";
+      return;
+    }
+
+    box.innerHTML=data.map(p=>`
+
+      <div class="card">
+
+        <h3>${esc(p.name)}</h3>
+
+        ${
+          p.price!=null
+          ? `<p class="price">${money(p.price)}</p>`
+          : ""
+        }
+
+        ${
+          p.stock!=null
+          ? `<p><b>Stok:</b> ${esc(p.stock)}</p>`
+          : ""
+        }
+
+        <label>Yeni fiyat</label>
+
+        <input
+          type="number"
+          step="0.01"
+          id="price-${p.id}"
+          value="${esc(p.price)}">
+
+        <button
+          class="action"
+          onclick="updateProductPrice('${p.id}')">
+          Fiyatı Güncelle
+        </button>
+
+      </div>
+
+    `).join("");
+
+  }catch(e){
+
+    box.innerHTML=
+      `<p style="color:red">Ürünler alınamadı: ${esc(e.message)}</p>`;
+  }
+
+}
+
+async function updateProductPrice(id){
+
+  const input=document.getElementById("price-"+id);
+
+  const price=Number(input.value);
+
+  if(!Number.isFinite(price)){
+    alert("Geçerli bir fiyat gir.");
+    return;
+  }
+
+  try{
+
+    await rest(
+      "products?id=eq."+encodeURIComponent(id),
+      {
+        method:"PATCH",
+        headers:{
+          "Prefer":"return=minimal"
+        },
+        body:JSON.stringify({price})
+      }
+    );
+
+    alert("Ürün fiyatı güncellendi.");
+
+    loadProducts();
+
+  }catch(e){
+    alert("Fiyat güncellenemedi: "+e.message);
+  }
+
+}
+
+async function loadSettings(){
+
+  try{
+
+    const data=await rest(
+      "store_settings?select=*&limit=1"
+    );
+
+    if(!data || !data.length)return;
+
+    const s=data[0];
+
+    storeName.value=s.store_name||"";
+    managerName.value=s.manager_name||"";
+    phone.value=s.phone||"";
+    address.value=s.address||"";
+    logoUrl.value=s.logo_url||"";
+
+  }catch(e){
+
+    console.log("Market ayarları:",e.message);
+
+  }
+
+}
+
+async function saveSettings(){
+
+  const message=
+    document.getElementById("settingsMessage");
+
+  message.style.color="#333";
+  message.textContent="Kaydediliyor...";
+
+  try{
+
+    const existing=await rest(
+      "store_settings?select=id&limit=1"
+    );
+
+    const payload={
+      store_name:storeName.value.trim(),
+      manager_name:managerName.value.trim(),
+      phone:phone.value.trim(),
+      address:address.value.trim(),
+      logo_url:logoUrl.value.trim(),
+      updated_at:new Date().toISOString()
+    };
+
+    if(existing && existing.length){
+
+      await rest(
+        "store_settings?id=eq."+
+        encodeURIComponent(existing[0].id),
+        {
+          method:"PATCH",
+          headers:{
+            "Prefer":"return=minimal"
+          },
+          body:JSON.stringify(payload)
+        }
+      );
+
+    }else{
+
+      await rest(
+        "store_settings",
+        {
+          method:"POST",
+          headers:{
+            "Prefer":"return=minimal"
+          },
+          body:JSON.stringify(payload)
+        }
+      );
+
+    }
+
+    message.style.color="green";
+
+    message.textContent=
+      "✓ Market bilgileri başarıyla kaydedildi.";
+
+  }catch(e){
+
+    message.style.color="red";
+
+    message.textContent=
+      "Kaydedilemedi: "+e.message;
+  }
+
+}
+
+boot();
+
 </script>
+
 </body>
 </html>
- 
