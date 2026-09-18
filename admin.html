@@ -263,7 +263,30 @@ const db = supabase.createClient(
   SUPABASE_URL,
   SUPABASE_ANON_KEY
 );
+const savedSession = JSON.parse(
+  localStorage.getItem("yl_session") || "null"
+);
 
+async function startAdmin() {
+  if (!savedSession?.access_token) {
+    alert("Yönetim panelini kullanmak için önce Yıldız Gross hesabınızla giriş yapın.");
+    return;
+  }
+
+  const { error } = await db.auth.setSession({
+    access_token: savedSession.access_token,
+    refresh_token: savedSession.refresh_token || ""
+  });
+
+  if (error) {
+    console.error(error);
+    alert("Yönetici oturumu açılamadı.");
+    return;
+  }
+await loadOrders();
+await loadProducts();
+
+}
 function showPanel(id) {
   document.querySelectorAll(".panel")
     .forEach(p => p.classList.remove("active"));
@@ -443,9 +466,10 @@ async function addProduct() {
   showPanel("products");
 }
 
-loadOrders();
-loadProducts();
+
+startAdmin();
 </script>
 
 </body>
 </html>
+ 
