@@ -3,174 +3,161 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yıldız Gross Yönetim Paneli</title>
+  <title>Yıldız Gross | Yönetim Paneli</title>
 
   <style>
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
-      font-family:Arial,sans-serif;
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f5f7;
+      color: #222;
     }
 
-    body{
-      background:#f5f6f8;
-      color:#222;
+    header {
+      background: #d71920;
+      color: white;
+      padding: 18px 25px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
-    header{
-      background:#e30613;
-      color:white;
-      padding:20px;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
+    header h1 {
+      margin: 0;
+      font-size: 24px;
     }
 
-    header h1{
-      font-size:24px;
+    .badge {
+      background: #ffd400;
+      color: #222;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-weight: bold;
     }
 
-    header span{
-      color:#ffd400;
-      font-weight:bold;
+    .container {
+      max-width: 1200px;
+      margin: 25px auto;
+      padding: 0 15px;
     }
 
-    .container{
-      max-width:1200px;
-      margin:auto;
-      padding:25px;
+    .menu {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+      gap: 12px;
+      margin-bottom: 25px;
     }
 
-    .cards{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-      gap:15px;
-      margin-bottom:25px;
+    .menu button {
+      border: 0;
+      padding: 15px;
+      border-radius: 10px;
+      background: white;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: bold;
+      box-shadow: 0 2px 8px #ddd;
     }
 
-    .card{
-      background:white;
-      padding:20px;
-      border-radius:14px;
-      box-shadow:0 2px 10px rgba(0,0,0,.08);
+    .menu button:hover {
+      background: #ffd400;
     }
 
-    .card h3{
-      color:#777;
-      font-size:14px;
-      margin-bottom:10px;
+    .panel {
+      display: none;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px #ddd;
     }
 
-    .card strong{
-      font-size:28px;
-      color:#e30613;
+    .panel.active {
+      display: block;
     }
 
-    .menu{
-      display:flex;
-      gap:10px;
-      margin-bottom:25px;
-      flex-wrap:wrap;
+    h2 {
+      margin-top: 0;
     }
 
-    button{
-      border:0;
-      border-radius:8px;
-      padding:12px 18px;
-      cursor:pointer;
-      font-weight:bold;
+    table {
+      width: 100%;
+      border-collapse: collapse;
     }
 
-    .menu button{
-      background:#e30613;
-      color:white;
+    th, td {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
     }
 
-    .panel{
-      background:white;
-      border-radius:14px;
-      padding:20px;
-      box-shadow:0 2px 10px rgba(0,0,0,.08);
-      margin-bottom:20px;
+    th {
+      background: #f7f7f7;
     }
 
-    h2{
-      margin-bottom:20px;
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin: 6px 0 12px;
+      border: 1px solid #ccc;
+      border-radius: 7px;
     }
 
-    table{
-      width:100%;
-      border-collapse:collapse;
+    .primary {
+      background: #d71920;
+      color: white;
+      border: 0;
+      padding: 11px 18px;
+      border-radius: 7px;
+      cursor: pointer;
+      font-weight: bold;
     }
 
-    th,td{
-      padding:13px;
-      border-bottom:1px solid #eee;
-      text-align:left;
+    .green {
+      background: #18864b;
+      color: white;
+      border: 0;
+      padding: 8px 10px;
+      border-radius: 6px;
+      cursor: pointer;
     }
 
-    th{
-      background:#fafafa;
+    .danger {
+      background: #d71920;
+      color: white;
+      border: 0;
+      padding: 8px 10px;
+      border-radius: 6px;
+      cursor: pointer;
     }
 
-    .status{
-      padding:7px 10px;
-      border-radius:20px;
-      background:#fff3cd;
-      display:inline-block;
-      font-size:13px;
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(180px,1fr));
+      gap: 15px;
+      margin-bottom: 20px;
     }
 
-    .action{
-      background:#e30613;
-      color:white;
-      padding:8px 10px;
+    .card {
+      background: #fff7d1;
+      padding: 20px;
+      border-radius: 10px;
     }
 
-    .green{
-      background:#16883c;
-      color:white;
+    .card strong {
+      font-size: 25px;
+      display: block;
+      margin-top: 8px;
     }
 
-    .yellow{
-      background:#f4b400;
-      color:#111;
-    }
-
-    .hidden{
-      display:none;
-    }
-
-    .form{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
-      gap:10px;
-      margin-bottom:20px;
-    }
-
-    input,select{
-      padding:12px;
-      border:1px solid #ddd;
-      border-radius:8px;
-      width:100%;
-    }
-
-    @media(max-width:700px){
-      .container{
-        padding:12px;
+    @media(max-width:700px) {
+      table {
+        font-size: 13px;
       }
 
-      table{
-        font-size:12px;
-      }
-
-      th,td{
-        padding:8px;
-      }
-
-      header h1{
-        font-size:19px;
+      header h1 {
+        font-size: 18px;
       }
     }
   </style>
@@ -179,71 +166,59 @@
 <body>
 
 <header>
-  <h1>⭐ YILDIZ <span>GROSS</span></h1>
-  <div>Yönetim Paneli</div>
+  <h1>⭐ YILDIZ GROSS</h1>
+  <div class="badge">YÖNETİM PANELİ</div>
 </header>
 
 <div class="container">
 
-  <div class="cards">
-    <div class="card">
-      <h3>Yeni Siparişler</h3>
-      <strong id="orderCount">0</strong>
-    </div>
-
-    <div class="card">
-      <h3>Ürün Sayısı</h3>
-      <strong id="productCount">0</strong>
-    </div>
-
-    <div class="card">
-      <h3>Hazırlanan Sipariş</h3>
-      <strong id="preparingCount">0</strong>
-    </div>
-
-    <div class="card">
-      <h3>Teslim Edilen</h3>
-      <strong id="deliveredCount">0</strong>
-    </div>
-  </div>
-
   <div class="menu">
-    <button onclick="showPanel('orders')">📦 Siparişler</button>
-    <button onclick="showPanel('products')">🛒 Ürün Yönetimi</button>
+    <button onclick="showPanel('dashboard')">📊 Genel Bakış</button>
+    <button onclick="showPanel('orders')">🛒 Siparişler</button>
+    <button onclick="showPanel('products')">📦 Ürünler</button>
+    <button onclick="showPanel('addProduct')">➕ Ürün Ekle</button>
   </div>
+
+  <section id="dashboard" class="panel active">
+    <h2>Genel Bakış</h2>
+
+    <div class="cards">
+      <div class="card">
+        Toplam Sipariş
+        <strong id="orderCount">-</strong>
+      </div>
+
+      <div class="card">
+        Toplam Ürün
+        <strong id="productCount">-</strong>
+      </div>
+
+      <div class="card">
+        Bekleyen Sipariş
+        <strong id="waitingCount">-</strong>
+      </div>
+    </div>
+  </section>
 
   <section id="orders" class="panel">
-    <h2>📦 Gelen Siparişler</h2>
+    <h2>Gelen Siparişler</h2>
 
     <table>
       <thead>
         <tr>
-          <th>Sipariş</th>
-          <th>Müşteri</th>
+          <th>Sipariş No</th>
           <th>Tutar</th>
           <th>Durum</th>
           <th>İşlem</th>
         </tr>
       </thead>
 
-      <tbody id="ordersBody">
-        <tr>
-          <td colspan="5">Siparişler Supabase'den yüklenecek...</td>
-        </tr>
-      </tbody>
+      <tbody id="ordersBody"></tbody>
     </table>
   </section>
 
-  <section id="products" class="panel hidden">
-
-    <h2>🛒 Ürün Yönetimi</h2>
-
-    <div class="form">
-      <input id="productName" placeholder="Ürün adı">
-      <input id="productPrice" type="number" step="0.01" placeholder="Fiyat">
-      <input id="productStock" type="number" placeholder="Stok">
-      <button class="green">+ Ürün Ekle</button>
-    </div>
+  <section id="products" class="panel">
+    <h2>Ürün Yönetimi</h2>
 
     <table>
       <thead>
@@ -255,24 +230,221 @@
         </tr>
       </thead>
 
-      <tbody id="productsBody">
-        <tr>
-          <td colspan="4">Ürünler Supabase'den yüklenecek...</td>
-        </tr>
-      </tbody>
+      <tbody id="productsBody"></tbody>
     </table>
+  </section>
 
+  <section id="addProduct" class="panel">
+    <h2>Yeni Ürün Ekle</h2>
+
+    <label>Ürün adı</label>
+    <input id="newName" placeholder="Örn: Ayçiçek Yağı 5 L">
+
+    <label>Fiyat</label>
+    <input id="newPrice" type="number" step="0.01" placeholder="199.90">
+
+    <label>Stok</label>
+    <input id="newStock" type="number" placeholder="50">
+
+    <button class="primary" onclick="addProduct()">
+      Ürünü Kaydet
+    </button>
   </section>
 
 </div>
 
-<script>
-  function showPanel(panel){
-    document.getElementById("orders").classList.add("hidden");
-    document.getElementById("products").classList.add("hidden");
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    document.getElementById(panel).classList.remove("hidden");
+<script>
+const SUPABASE_URL = "https://jqftaggiyvnmmyhewmsj.supabase.co";
+const SUPABASE_ANON_KEY = "sb_publishable_K5oT0Cd1Xqov6RkktIm0EA_-dQJiG7A";
+
+const db = supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+function showPanel(id) {
+  document.querySelectorAll(".panel")
+    .forEach(p => p.classList.remove("active"));
+
+  document.getElementById(id)
+    .classList.add("active");
+}
+
+async function loadOrders() {
+  const { data, error } = await db
+    .from("orders")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    return;
   }
+
+  document.getElementById("orderCount").textContent =
+    data.length;
+
+  document.getElementById("waitingCount").textContent =
+    data.filter(x => x.status === "Sipariş Alındı").length;
+
+  document.getElementById("ordersBody").innerHTML =
+    data.map(order => `
+      <tr>
+        <td>${order.order_number || "-"}</td>
+
+        <td>
+          ₺${Number(order.total_amount || 0).toFixed(2)}
+        </td>
+
+        <td>
+          <select onchange="changeStatus(
+            '${order.id}',
+            this.value
+          )">
+            <option ${order.status==="Sipariş Alındı"?"selected":""}>
+              Sipariş Alındı
+            </option>
+
+            <option ${order.status==="Hazırlanıyor"?"selected":""}>
+              Hazırlanıyor
+            </option>
+
+            <option ${order.status==="Yola Çıktı"?"selected":""}>
+              Yola Çıktı
+            </option>
+
+            <option ${order.status==="Teslim Edildi"?"selected":""}>
+              Teslim Edildi
+            </option>
+          </select>
+        </td>
+
+        <td>Yönet</td>
+      </tr>
+    `).join("");
+}
+
+async function changeStatus(id, status) {
+  const { error } = await db
+    .from("orders")
+    .update({ status })
+    .eq("id", id);
+
+  if (error) {
+    alert("Durum değiştirilemedi.");
+    console.error(error);
+    return;
+  }
+
+  alert("Sipariş durumu güncellendi.");
+  loadOrders();
+}
+
+async function loadProducts() {
+  const { data, error } = await db
+    .from("products")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error(error);
+    return;
+  }
+
+  document.getElementById("productCount").textContent =
+    data.length;
+
+  document.getElementById("productsBody").innerHTML =
+    data.map(product => `
+      <tr>
+        <td>${product.name}</td>
+        <td>₺${Number(product.price).toFixed(2)}</td>
+        <td>${product.stock ?? "-"}</td>
+
+        <td>
+          <button
+            class="danger"
+            onclick="deleteProduct('${product.id}')">
+            Sil
+          </button>
+        </td>
+      </tr>
+    `).join("");
+}
+
+async function deleteProduct(id) {
+  if (!confirm("Bu ürünü silmek istediğine emin misin?"))
+    return;
+
+  const { error } = await db
+    .from("products")
+    .delete()
+    .eq("id", id);
+
+  if (error) {
+    alert("Ürün silinemedi.");
+    console.error(error);
+    return;
+  }
+
+  loadProducts();
+}
+
+async function addProduct() {
+  const name =
+    document.getElementById("newName").value.trim();
+
+  const price =
+    Number(document.getElementById("newPrice").value);
+
+  const stock =
+    Number(document.getElementById("newStock").value);
+
+  if (!name || !price) {
+    alert("Ürün adı ve fiyatı gir.");
+    return;
+  }
+
+  const slug = name
+    .toLowerCase()
+    .replace(/ğ/g,"g")
+    .replace(/ü/g,"u")
+    .replace(/ş/g,"s")
+    .replace(/ı/g,"i")
+    .replace(/ö/g,"o")
+    .replace(/ç/g,"c")
+    .replace(/[^a-z0-9]+/g,"-")
+    .replace(/^-|-$/g,"");
+
+  const { error } = await db
+    .from("products")
+    .insert({
+      name,
+      slug,
+      price,
+      stock
+    });
+
+  if (error) {
+    alert("Ürün eklenemedi.");
+    console.error(error);
+    return;
+  }
+
+  alert("Ürün başarıyla eklendi.");
+
+  document.getElementById("newName").value = "";
+  document.getElementById("newPrice").value = "";
+  document.getElementById("newStock").value = "";
+
+  loadProducts();
+  showPanel("products");
+}
+
+loadOrders();
+loadProducts();
 </script>
 
 </body>
